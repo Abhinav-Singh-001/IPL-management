@@ -1,32 +1,57 @@
 import Apierror from "../../../utils/apierror.util.js";
-import { teamSponsor } from "../models/team-sponsor.model.js";
+import { Sponsor } from "../models/sponsor.model.js";
 
-const createTeamSponsor = async ({ teamId, sponsorId }) => {
-  const teamSponsor = await teamSponsor.create({ teamId, sponsorId });
-  return teamSponsor;
+const createTeamBroadcaster = async ({ teamId, broadcasterId }) => {
+  const teamBroadcaster = await Sponsor.create({
+    teamId,
+    broadcasterId,
+  });
+  return teamBroadcaster;
 };
 
-const getTeamSponsors = async (teamId) => {
-  const teamSponsors = await teamSponsor.findAll({ where: { teamId } });
-  return teamSponsors;
+const getTeamBroadcaster = async ({ teamId, broadcasterId }) => {
+  const teamBroadcaster = await Sponsor.findOne({
+    where: {
+      teamId,
+      broadcasterId,
+    },
+  });
+  return teamBroadcaster;
 };
 
-const getTeamSponsorById = async (id) => {
-  const teamSponsor = await teamSponsor.findByPk(id);
-  if (!teamSponsor) throw new Apierror("Team Sponsor not found", 404);
-  return teamSponsor;
+const getTeamBroadcasterByTeamId = async ({ teamId }) => {
+  const teamBroadcaster = await Sponsor.findAll({
+    where: {
+      teamId,
+    },
+  });
+  return teamBroadcaster;
 };
 
-const deleteTeamSponsor = async (id) => {
-  const teamSponsor = await teamSponsor.findByPk(id);
-  if (!teamSponsor) throw new Apierror("Team Sponsor not found", 404);
-  await teamSponsor.destroy();
-  return;
+const updateTeamBroadcaster = async ({ teamId, broadcasterId }, updateData) => {
+  const teamBroadcaster = await Sponsor.update(updateData, {
+    where: {
+      teamId,
+      broadcasterId,
+    },
+  });
+  return teamBroadcaster;
+};
+
+const deleteTeamBroadcaster = async ({ teamId, broadcasterId }) => {
+  const teamBroadcaster = await Broadcaster.destroy({
+    where: {
+      teamId,
+      broadcasterId,
+    },
+  });
+  return teamBroadcaster;
 };
 
 export {
-  createTeamSponsor,
-  getTeamSponsors,
-  getTeamSponsorById,
-  deleteTeamSponsor,
+  createTeamBroadcaster,
+  getTeamBroadcaster,
+  getTeamBroadcasterByTeamId,
+  updateTeamBroadcaster,
+  deleteTeamBroadcaster,
 };

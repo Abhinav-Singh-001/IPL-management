@@ -1,8 +1,8 @@
 import Apierror from "../../../utils/apierror.util.js";
-import { Sponsor } from "../models/sponsor.model.js";
+import { Brpadcaster } from "../models/sponsor.model.js";
 
 const createTeamBroadcaster = async ({ teamId, broadcasterId }) => {
-  const teamBroadcaster = await Sponsor.create({
+  const teamBroadcaster = await Broadcaster.create({
     teamId,
     broadcasterId,
   });
